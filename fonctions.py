@@ -577,7 +577,6 @@ def Visualisation_des_paramètres(df,unity,phase,date1,date2):
                         ay=-40  # Position Y de la flèche par rapport au texte
                     )
             st.plotly_chart(fig,use_container_width=True,height = 200) 
-
     #filtrage selon l'unité ESLI
     elif (unity == "ESLI") & (phase =="intake"):
         df = pd.read_excel(df,sheet_name="ESLI_intake")
@@ -1594,16 +1593,7 @@ def Visualisation_des_paramètres(df,unity,phase,date1,date2):
     elif (unity == "ION EXCHANGE") & (phase =="PERMEAT FILTRATION"):
         df = pd.read_excel(df,sheet_name="ION_PERMEAT FILTRATION")
         col1,col2, = st.columns((2))
-        # df['date'] = pd.to_datetime(df['date'])
 
-        # startDate = pd.to_datetime(df["date"]).min()
-        # endDate = pd.to_datetime(df["date"]).max()
-
-        # with col1:
-        #     date1 = pd.to_datetime(st.date_input("Start Date", startDate))
-
-        # with col2:
-        #     date2 = pd.to_datetime(st.date_input("End Date", endDate))
         df = df[(df["date"] >= date1) & (df["date"] <= date2)]
         df.replace('/', np.nan, inplace=True)
         df.replace('en cours', np.nan, inplace=True)
@@ -2300,6 +2290,8 @@ def Visualisation_des_paramètres(df,unity,phase,date1,date2):
     # filtrage selon l'unité MCT
     elif (unity == "MCT") & (phase =="intake"):
         df = pd.read_excel(df,sheet_name="MCT_intake")
+        col1,col2 = st.columns((2))
+
         df = df[(df["date"] >= date1) & (df["date"] <= date2)]
         df.replace('/', np.nan, inplace=True)
         df.replace('en cours', np.nan, inplace=True)
@@ -2311,30 +2303,10 @@ def Visualisation_des_paramètres(df,unity,phase,date1,date2):
         with col1:
             st.markdown(f"<h2 style='text-align: center;'>Cond. (mS/cm) à 25° C moyen: {np.around(df['Cond. (mS/cm) à 25° C'].mean(),2)}</h2>", unsafe_allow_html=True)        
             fig = px.line(df,x="date",y="Cond. (mS/cm) à 25° C")
-            # fig.add_hline(y=0.1, line_dash="dash", line_color="red", line_width=2)
-            # fig.add_annotation(
-            #         x=df['date'].iloc[-1],  # Position X (la dernière date dans ce cas)
-            #         y=0.1,  # Position Y (sur la ligne horizontale)
-            #         text="Cond. (mS/cm) à 25° C doit être inférieur ou égale à 0.1",  # Texte de l'annotation
-            #         showarrow=True,  # Afficher une flèche pointant vers le point
-            #         arrowhead=2,  # Type de flèche
-            #         ax=0,  # Position X de la flèche par rapport au texte
-            #         ay=-40  # Position Y de la flèche par rapport au texte
-            #     )
             st.plotly_chart(fig,use_container_width=True,height = 200)
         with col2:
             st.markdown(f"<h2 style='text-align: center;'>Turb (NTU) moyen: {np.around(df['Turb (NTU)'].mean(),2)}</h2>", unsafe_allow_html=True)        
             fig = px.line(df,x="date",y="Turb (NTU)")
-            # fig.add_hline(y=0.1, line_dash="dash", line_color="red", line_width=2)
-            # fig.add_annotation(
-            #         x=df['date'].iloc[-1],  # Position X (la dernière date dans ce cas)
-            #         y=0.1,  # Position Y (sur la ligne horizontale)
-            #         text="Turb (NTU) doit être inférieur ou égale à 0.1",  # Texte de l'annotation
-            #         showarrow=True,  # Afficher une flèche pointant vers le point
-            #         arrowhead=2,  # Type de flèche
-            #         ax=0,  # Position X de la flèche par rapport au texte
-            #         ay=-40  # Position Y de la flèche par rapport au texte
-            #     )
             st.plotly_chart(fig,use_container_width=True,height = 200)
         with col1:
             st.markdown(f"<h2 style='text-align: center;'>PO43- (mg/l) moyen: {np.around(df['PO43- (mg/l)'].mean(),2)}</h2>", unsafe_allow_html=True)        
@@ -2399,43 +2371,20 @@ def Visualisation_des_paramètres(df,unity,phase,date1,date2):
         with col2:
             st.markdown(f"<h2 style='text-align: center;'>pH moyenne: {np.around(df['pH'].mean(),2)}</h2>", unsafe_allow_html=True)
             fig = px.line(df,x="date",y="pH")
-            # fig.add_hline(y=0, line_dash="dash", line_color="red", line_width=2)
-            # fig.add_annotation(
-            #         x=df['date'].iloc[-1],  # Position X (la dernière date dans ce cas)
-            #         y=0,  # Position Y (sur la ligne horizontale)
-            #         text="Cl2 libre doit être égale à 0",  # Texte de l'annotation
-            #         showarrow=True,  # Afficher une flèche pointant vers le point
-            #         arrowhead=2,  # Type de flèche
-            #         ax=0,  # Position X de la flèche par rapport au texte
-            #         ay=-40  # Position Y de la flèche par rapport au texte
-            #     )
-            st.plotly_chart(fig,use_container_width=True,height = 200)
+            st.plotly_chart(fig,use_container_width=True,height = 200)   
         with col1:
             st.markdown(f"<h2 style='text-align: center;'>TDS (mg/l) moyenne: {np.around(df['TDS (mg/l)'].mean(),2)}</h2>", unsafe_allow_html=True)
             fig = px.line(df,x="date",y="TDS (mg/l)")
             st.plotly_chart(fig,use_container_width=True,height = 200)
     elif (unity == "MCT") & (phase =="APRES FILTRES A CARTOUCHE"):
         df = pd.read_excel(df, sheet_name="MCT_APRES FILTRES A CARTOUCHE")
-        # df['date'] = pd.to_datetime(df['date'])
 
-        # # Définir les dates minimales et maximales
-        # startDate = df['date'].min()
-        # endDate = df['date'].max()
+        col1,col2 = st.columns((2))
 
-        # # Créer les colonnes pour la sélection des dates
-        # col1, col2 = st.columns(2)
-
-        # with col1:
-        #     date1 = st.date_input("Start Date", startDate)
-
-        # with col2:
-        #     date2 = st.date_input("End Date", endDate)
-
-        # Filtrer les données en fonction des dates sélectionnées
-        df = df[(df['date'] >= pd.to_datetime(date1)) & (df['date'] <= pd.to_datetime(date2))]
+        df = df[(df["date"] >= date1) & (df["date"] <= date2)]
         df.replace('/', np.nan, inplace=True)
         df.replace('en cours', np.nan, inplace=True)
-
+   
         df['TOC (mg/l) LIGNE 1'] = df['TOC (mg/l) LIGNE 1'].replace('<3',1)
         df['TOC (mg/l) LIGNE 1'] = df['TOC (mg/l) LIGNE 1'].replace(0,1)
         df['TOC (mg/l) LIGNE 1'] = df['TOC (mg/l) LIGNE 1'].astype(float)
@@ -2458,7 +2407,7 @@ def Visualisation_des_paramètres(df,unity,phase,date1,date2):
         df['TOC (mg/l) LIGNE 4'] = df['TOC (mg/l) LIGNE 4'].astype(float)
         df.loc[df['TOC (mg/l) LIGNE 4'] < 3, 'TOC (mg/l) LIGNE 4'] = 1
         df.loc[df['TOC (mg/l) LIGNE 4'] > 3, 'TOC (mg/l) LIGNE 4'] = 0
-        print(df)
+
 #LIGNE 1
         with col1:
             st.markdown(f"<h2 style='text-align: center;'>pH LIGNE 1 moyen: {np.around(df['pH LIGNE 1'].mean(),2)}</h2>", unsafe_allow_html=True)
@@ -2858,16 +2807,6 @@ def Visualisation_des_paramètres(df,unity,phase,date1,date2):
     elif (unity == "MCT") & (phase =="PERMEAT RO"): 
         df = pd.read_excel(df,sheet_name="MCT_PERMEAT RO")
         col1,col2 = st.columns((2))
-        # df['date'] = pd.to_datetime(df['date'])
-
-        # startDate = pd.to_datetime(df["date"]).min()
-        # endDate = pd.to_datetime(df["date"]).max()
-
-        # with col1:
-        #     date1 = pd.to_datetime(st.date_input("Start Date", startDate))
-
-        # with col2:
-        #     date2 = pd.to_datetime(st.date_input("End Date", endDate))
         df = df[(df["date"] >= date1) & (df["date"] <= date2)]
         df.replace('/', np.nan, inplace=True)
         df.replace('#VALEUR!', np.nan, inplace=True)
@@ -3014,11 +2953,6 @@ def Comparaison_des_phases_de_traitement(t,data,date1,date2,graphique):
     df1 = pd.DataFrame(df1)
     df1 =  df1[(df1["date"] >= date1) & (df1["date"] <= date2)] 
     if (df1.columns[1][:2] != df1.columns[2][:2] ):
-        # col1,col2 = st.columns((2))
-        # with col1:
-        #     selected_color1 = st.color_picker(f'Choisissez la couleur de {df1.columns[1][:4]}', '#095DBA')
-        # with col2:
-        #     selected_color2 = st.color_picker(f'Choisissez la couleur de {df1.columns[2][:4]}', '#FF4B4A')
         fig = make_subplots(specs=[[{"secondary_y": True}]])
 
         fig.add_trace(
@@ -3044,11 +2978,6 @@ def Comparaison_des_phases_de_traitement(t,data,date1,date2,graphique):
 
         st.plotly_chart(fig, use_container_width=True)
     else:
-        # col1,col2 = st.columns((2))
-        # with col1:
-        #     selected_color1 = st.color_picker(f'Choisissez le couleur du premiére paramètre', '#095DBA')
-        # with col2:
-        #     selected_color2 = st.color_picker(f'Choisissez le couleur du deuxiéme paramètre', '#FF4B4A') 
         st.markdown(f"<h3 style='text-align: center;'>Variation de {title[:4]} pendant les phases séléctionner</h3>", unsafe_allow_html=True)        
         fig = px.line(df1,x="date",y=df1.columns[1:])
         fig.update_traces(line=dict(color='#095DBA'), selector=dict(name=df1.columns[1]))
@@ -3063,10 +2992,6 @@ def Comparaison_des_phases_de_traitement(t,data,date1,date2,graphique):
            if df1["Pourcentage"].iloc[i] <0:
                df1["Pourcentage"].iloc[i] = np.nan
 
-        # with open("styles.css") as f:
-        #     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-        
-        
         if graphique == "Graphique à barres":
             # selected_color = st.color_picker(f'Choisissez une couleur', '#FF4B4A')
             st.markdown(f"<h3 style='text-align: center;'>Pourcentage d'élémination moyenne de {title[:4]} :{np.round(df1['Pourcentage'].mean(),2)}  %</h3>", unsafe_allow_html=True)        
@@ -3080,10 +3005,6 @@ def Comparaison_des_phases_de_traitement(t,data,date1,date2,graphique):
 
         elif graphique == "Graphique à points":
             graphique_pourcentage_elimination(df1,"date","Pourcentage",title,px.scatter)    
-    # else:
-    #     st.markdown(f"<h3 style='text-align: center;'>Variation de {title[:4]} pendant les phases séléctionner</h3>", unsafe_allow_html=True)        
-    #     fig = px.line(df1,x="date",y=df1.columns[1:])
-    #     st.plotly_chart(fig,use_container_width=True,height = 200)  
 def generate_hex_colors(n):
     colors = []
     for _ in range(n):
@@ -3365,38 +3286,37 @@ def compar_unity_op(data,unity,phase,params,date1,date2):
     st.plotly_chart(fig,use_container_width=True,height = 200)
 def visualisation_volume(df,date1,date2):
     df = df[(df["Date"] >= date1) & (df["Date"] <= date2)]
-    # st.markdown(f"<h2 style='text-align: center;'>Volume Produit de chaque unitée en m3</h2>", unsafe_allow_html=True)        
-    # fig1 = px.line(df,x="Date",y=df.columns[1:df.shape[1]-1])
-    # st.plotly_chart(fig1,use_container_width=True,height = 200)
+    st.markdown(f"<h2 style='text-align: center;'>Volume Produit de chaque unitée en m3</h2>", unsafe_allow_html=True)        
+    fig1 = px.line(df,x="Date",y=df.columns[1:df.shape[1]-1])
+    st.plotly_chart(fig1,use_container_width=True,height = 200)
     
-    # st.markdown(f"<h2 style='text-align: center;'>Volume Total en m3</h2>", unsafe_allow_html=True)        
-    # fig2 = px.line(df,x="Date",y=df.columns[-1])
-    # st.plotly_chart(fig2,use_container_width=True,height = 200)
-    st.markdown(f"<h2 style='text-align: center;'>Volume Produit de {df.columns[1]} en m3</h2>", unsafe_allow_html=True)        
-    fig = px.line(df, x="Date", y=df.columns[1], text=df[df.columns[1]])
-    fig.update_traces(mode='lines+markers+text', textposition='top right')
-    st.plotly_chart(fig, use_container_width=True, height=200)
+    st.markdown(f"<h2 style='text-align: center;'>Volume Total en m3</h2>", unsafe_allow_html=True)        
+    fig2 = px.line(df,x="Date",y=df.columns[-1])
+    st.plotly_chart(fig2,use_container_width=True,height = 200)
+    # st.markdown(f"<h2 style='text-align: center;'>Volume Produit de {df.columns[1]} en m3</h2>", unsafe_allow_html=True)        
+    # fig = px.line(df, x="Date", y=df.columns[1], text=df[df.columns[1]])
+    # fig.update_traces(mode='lines+markers+text', textposition='top right')
+    # st.plotly_chart(fig, use_container_width=True, height=200)
     
-    st.markdown(f"<h2 style='text-align: center;'>Volume Produit de {df.columns[2]} en m3</h2>", unsafe_allow_html=True)        
-    fig = px.line(df, x="Date", y=df.columns[2], text=df[df.columns[2]])
-    fig.update_traces(mode='lines+markers+text', textposition='top right')
-    st.plotly_chart(fig, use_container_width=True, height=200)
+    # st.markdown(f"<h2 style='text-align: center;'>Volume Produit de {df.columns[2]} en m3</h2>", unsafe_allow_html=True)        
+    # fig = px.line(df, x="Date", y=df.columns[2], text=df[df.columns[2]])
+    # fig.update_traces(mode='lines+markers+text', textposition='top right')
+    # st.plotly_chart(fig, use_container_width=True, height=200)
     
-    st.markdown(f"<h2 style='text-align: center;'>Volume Produit de {df.columns[3]} en m3</h2>", unsafe_allow_html=True)        
-    fig = px.line(df, x="Date", y=df.columns[3], text=df[df.columns[3]])
-    fig.update_traces(mode='lines+markers+text', textposition='top right')
-    st.plotly_chart(fig, use_container_width=True, height=200)
+    # st.markdown(f"<h2 style='text-align: center;'>Volume Produit de {df.columns[3]} en m3</h2>", unsafe_allow_html=True)        
+    # fig = px.line(df, x="Date", y=df.columns[3], text=df[df.columns[3]])
+    # fig.update_traces(mode='lines+markers+text', textposition='top right')
+    # st.plotly_chart(fig, use_container_width=True, height=200)
     
-    st.markdown(f"<h2 style='text-align: center;'>Volume Produit de {df.columns[4]} en m3</h2>", unsafe_allow_html=True)        
-    fig = px.line(df, x="Date", y=df.columns[4], text=df[df.columns[4]])
-    fig.update_traces(mode='lines+markers+text', textposition='top right')
-    st.plotly_chart(fig, use_container_width=True, height=200)
+    # st.markdown(f"<h2 style='text-align: center;'>Volume Produit de {df.columns[4]} en m3</h2>", unsafe_allow_html=True)        
+    # fig = px.line(df, x="Date", y=df.columns[4], text=df[df.columns[4]])
+    # fig.update_traces(mode='lines+markers+text', textposition='top right')
+    # st.plotly_chart(fig, use_container_width=True, height=200)
     
-    st.markdown(f"<h2 style='text-align: center;'>Volume Produit de {df.columns[5]} en m3</h2>", unsafe_allow_html=True)        
-    fig = px.line(df, x="Date", y=df.columns[5], text=df[df.columns[5]])
-    fig.update_traces(mode='lines+markers+text', textposition='top right')
-    st.plotly_chart(fig, use_container_width=True, height=200)
-    
+    # st.markdown(f"<h2 style='text-align: center;'>Volume Produit de {df.columns[5]} en m3</h2>", unsafe_allow_html=True)        
+    # fig = px.line(df, x="Date", y=df.columns[5], text=df[df.columns[5]])
+    # fig.update_traces(mode='lines+markers+text', textposition='top right')
+    # st.plotly_chart(fig, use_container_width=True, height=200)
 def visualisation_volume_op(data1,data2,phase,volume, param):
     df1 = {'date':data2['Date']}
     # df['date'] = data2['Date']
