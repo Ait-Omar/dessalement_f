@@ -3192,12 +3192,6 @@ def labo_oper1(d1,d2,phase1,phase2,x,y):
     df.replace('erroné', np.nan, inplace=True)
     df.replace('-', np.nan, inplace=True)
     df.replace('en cours', np.nan, inplace=True)
-    # df.replace('', np.nan, inplace=True)
-    # col1,col2 = st.columns((2))
-    # with col1:
-    #     selected_color1 = st.color_picker(f'Choisissez la couleur de {x}', '#095DBA')
-    # with col2:
-    #     selected_color2 = st.color_picker(f'Choisissez la couleur de {y}', '#FF4B4A')
     fig = make_subplots(specs=[[{"secondary_y": True}]])
 
     fig.add_trace(

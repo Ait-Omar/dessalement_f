@@ -4,6 +4,7 @@ from PIL import Image
 import base64
 from io import BytesIO
 import plotly.express as px
+
 from fonctions import Visualisation_des_paramètres,Comparaison_des_phases_de_traitement,unity_compare,labo_oper,labo_oper1,labo_oper2,vis_op,compare_op,compar_unity_op,visualisation_volume,visualisation_volume_op
 
 #--------------------------------------------------heradr-------------------------------------------------------------
@@ -31,6 +32,8 @@ st.sidebar.markdown(
 st.markdown("<h1 style='text-align: center;color:#095DBA;'> Dessalement de l'eau de mer mobile à JORF LASFAR</h1>", unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader("Choisissez un fichier Excel", type=["xlsx", "xls"])
+
+
 
 #---------------------------------------------Chargement des données-----------------------------------------------------
 
@@ -469,13 +472,13 @@ if uploaded_file is not None:
                                             "MCT"
                                             ])
             if (unity_to_compare == "MCT"):
-                data_opertionel["tr"] = pd.read_excel('SUIVI DP et Q et CIP des RO  MCT 27-08-2024.xlsx',sheet_name="tr")
+                data_opertionel["tr"] = pd.read_excel('SUIVI DP et Q et CIP des RO  MCT.xlsx',sheet_name="tr")
                 phase = st.sidebar.radio('Phase:',
                                         ["tr"])
             elif  (unity_to_compare == "QT"):
                 sheets =["UF","FC","RO"]
                 for sheet in sheets:
-                    data_opertionel[sheet] = pd.read_excel('Suivi contrôle qualité d\'eau de dessalement QT 27-08-2024.xlsx',sheet_name=sheet)
+                    data_opertionel[sheet] = pd.read_excel('Suivi contrôle qualité d\'eau de dessalement QT.xlsx',sheet_name=sheet)
                 phase = st.sidebar.radio('Phase:',
                                         ["UF","FC","RO"]
                                         )
