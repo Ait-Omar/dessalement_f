@@ -3363,13 +3363,16 @@ def compar_unity_op(data,unity,phase,params,date1,date2):
 
     fig = px.bar(df1,x="date",y=df1.columns[1:])
     st.plotly_chart(fig,use_container_width=True,height = 200)
-def visualisation_volume(df):
+def visualisation_volume(df,date1,date2):
+    print(df.columns)
+    df = df[(df["Date"] >= date1) & (df["Date"] <= date2)]
     st.markdown(f"<h2 style='text-align: center;'>Volume Produit de chaque unitée en m3</h2>", unsafe_allow_html=True)        
-    fig = px.line(df,x="Date",y=df.columns[1:df.shape[1]-1])
-    st.plotly_chart(fig,use_container_width=True,height = 200)
+    fig1 = px.line(df,x="Date",y=df.columns[1:df.shape[1]-1])
+    st.plotly_chart(fig1,use_container_width=True,height = 200)
+    
     st.markdown(f"<h2 style='text-align: center;'>Volume Total en m3</h2>", unsafe_allow_html=True)        
-    fig = px.line(df,x="Date",y=df.columns[-1])
-    st.plotly_chart(fig,use_container_width=True,height = 200)
+    fig2 = px.line(df,x="Date",y=df.columns[-1])
+    st.plotly_chart(fig2,use_container_width=True,height = 200)
 def visualisation_volume_op(data1,data2,phase,volume, param):
     df1 = {'date':data2['Date']}
     # df['date'] = data2['Date']

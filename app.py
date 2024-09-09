@@ -456,11 +456,21 @@ if uploaded_file is not None:
                                         "Volume & Paramètres de marche",
                                         ])      
         df = pd.read_excel('Copie de Résultat de Production et TRG - Eau Dessalement Mobile et Fixe au   25 08 2024.xlsb .xlsx',sheet_name="Volume")
+        
         if don == "Volume produit (m3)":
             df = pd.read_excel('Copie de Résultat de Production et TRG - Eau Dessalement Mobile et Fixe au   25 08 2024.xlsb .xlsx',sheet_name="Volume")
-            # param = st.sidebar.radio('Unitée:',df.columns[1:])
+            col1,col2 = st.columns((2))
+        
+            startDate = pd.to_datetime(df["Date"]).min()
+            endDate = pd.to_datetime(df["Date"]).max()
+
+            with col1:
+                date1 = pd.to_datetime(st.sidebar.date_input("Start Date", startDate))
+
+            with col2:
+                date2 = pd.to_datetime(st.sidebar.date_input("End Date", endDate))
             if st.sidebar.button("Aply"):
-                visualisation_volume(df)
+                visualisation_volume(df,date1,date2)
         elif don == "Volume & Paramètres de marche":
             df = pd.read_excel('Copie de Résultat de Production et TRG - Eau Dessalement Mobile et Fixe au   25 08 2024.xlsb .xlsx',sheet_name="Volume")
             data_opertionel={}
