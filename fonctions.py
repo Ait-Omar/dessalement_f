@@ -2407,7 +2407,6 @@ def Visualisation_des_paramètres(df,unity,phase,date1,date2):
         df['TOC (mg/l) LIGNE 4'] = df['TOC (mg/l) LIGNE 4'].astype(float)
         df.loc[df['TOC (mg/l) LIGNE 4'] < 3, 'TOC (mg/l) LIGNE 4'] = 1
         df.loc[df['TOC (mg/l) LIGNE 4'] > 3, 'TOC (mg/l) LIGNE 4'] = 0
-
 #LIGNE 1
         with col1:
             st.markdown(f"<h2 style='text-align: center;'>pH LIGNE 1 moyen: {np.around(df['pH LIGNE 1'].mean(),2)}</h2>", unsafe_allow_html=True)
@@ -3076,11 +3075,6 @@ def labo_oper(d1,d2,phase1,phase2,x,y):
     df.replace('erroné', np.nan, inplace=True)
     df.replace('en cours', np.nan, inplace=True)
 
-    # col1,col2 = st.columns((2))
-    # with col1:
-    #     selected_color1 = st.color_picker(f'Choisissez la couleur de {x}', '#095DBA')
-    # with col2:
-    #     selected_color2 = st.color_picker(f'Choisissez la couleur de {y}', '#FF4B4A')
     fig = make_subplots(specs=[[{"secondary_y": True}]])
 
     fig.add_trace(
@@ -3146,11 +3140,11 @@ def labo_oper2(d1,d2,phase1,x,y):
     df.replace('-', np.nan, inplace=True)
     df.replace('en cours', np.nan, inplace=True)
     # df.replace('', np.nan, inplace=True)
-    col1,col2 = st.columns((2))
-    with col1:
-        selected_color1 = st.color_picker(f'Choisissez la couleur de {x}', '#095DBA')
-    with col2:
-        selected_color2 = st.color_picker(f'Choisissez la couleur de {y}', '#FF4B4A')
+    # col1,col2 = st.columns((2))
+    # with col1:
+    #     selected_color1 = st.color_picker(f'Choisissez la couleur de {x}', '#095DBA')
+    # with col2:
+    #     selected_color2 = st.color_picker(f'Choisissez la couleur de {y}', '#FF4B4A')
     fig = make_subplots(specs=[[{"secondary_y": True}]])
 
     fig.add_trace(

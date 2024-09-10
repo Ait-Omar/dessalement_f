@@ -33,8 +33,6 @@ st.markdown("<h1 style='text-align: center;color:#095DBA;'> Dessalement de l'eau
 
 uploaded_file = st.file_uploader("Choisissez un fichier Excel", type=["xlsx", "xls"])
 
-
-
 #---------------------------------------------Chargement des données-----------------------------------------------------
 
 if uploaded_file is not None:
@@ -101,7 +99,6 @@ if uploaded_file is not None:
                                             'PERMEAT RO',
                                             ])
                 df = pd.read_excel(uploaded_file,sheet_name="QT_intake")
-
                 col1,col2 = st.columns((2))
                 df['date'] = pd.to_datetime(df['date'])
 
@@ -110,7 +107,6 @@ if uploaded_file is not None:
 
                 with col1:
                     date1 = pd.to_datetime(st.sidebar.date_input("Start Date", startDate))
-
                 with col2:
                     date2 = pd.to_datetime(st.sidebar.date_input("End Date", endDate))
 
