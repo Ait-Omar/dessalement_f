@@ -318,6 +318,7 @@ if uploaded_file is not None:
                     data_opertionel["tr"] = pd.read_excel('SUIVI DP et Q et CIP des RO  MCT.xlsx',sheet_name="tr")
                     phase = st.sidebar.radio('Phase:',
                                             ["tr"])
+                    df = pd.read_excel('SUIVI DP et Q et CIP des RO  MCT.xlsx',sheet_name="tr")
                 elif  (unity == "QT"):
                     sheets =["UF","FC","RO"]
                     for sheet in sheets:
@@ -325,16 +326,17 @@ if uploaded_file is not None:
                     phase = st.sidebar.radio('Phase:',
                                             ["UF","FC","RO"]
                                             )
+                    df = pd.read_excel('Suivi contrôle qualité d\'eau de dessalement QT.xlsx',sheet_name="UF")
                 elif(unity == "ESLI"):
                     sheets =["UF","FC","RO ZONE A","RO ZONE B","RO ZONE C"]
                     for sheet in sheets:
                         data_opertionel[sheet] = pd.read_excel('Suivi contrôle qualité d\'eau de dessalement ESLI.xlsx',sheet_name=sheet)
                     phase = st.sidebar.radio('Phase:',
                                            ["UF","FC","RO ZONE A","RO ZONE B","RO ZONE C"])
-                df = pd.read_excel('Suivi contrôle qualité d\'eau de dessalement QT.xlsx',sheet_name="FC")
+                    df = pd.read_excel('Suivi contrôle qualité d\'eau de dessalement ESLI.xlsx',sheet_name="UF")
+                
 
                 col1,col2 = st.columns((2))
-                df['date'] = pd.to_datetime(df['date'])
 
                 startDate = pd.to_datetime(df["date"]).min()
                 endDate = pd.to_datetime(df["date"]).max()
